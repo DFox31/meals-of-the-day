@@ -1,92 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1011.0" prefWidth="487.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    <children>
-        <HBox spacing="10">
-            <children>
-                <Label text="Дневная норма калорий: " />
-                <TextField fx:id="calDField" />
-                <Button fx:id="addNorm" mnemonicParsing="false" onAction="#onaddNormClick" text="Установить норму" />
-            </children>
-        </HBox>
-        <HBox spacing="10">
-            <children>
-                <Label text="Продукт: " />
-                <TextField fx:id="prodField" />
-            </children>
-        </HBox>
-        <HBox spacing="10">
-            <children>
-                <Label text="Калории (на 100гр.):" />
-                <TextField fx:id="cal100Field" />
-            </children>
-        </HBox>
-        <HBox spacing="10">
-            <children>
-                <Label text="Белки (на 100гр.):" />
-                <TextField fx:id="prot100Field" />
-            </children>
-        </HBox>
-        <HBox spacing="10">
-            <children>
-                <Label text="Жиры(на 100гр.):" />
-                <TextField fx:id="fat100Field" />
-            </children>
-        </HBox>
-        <HBox spacing="10">
-            <children>
-                <Label text="Углеводы (на 100гр.):" />
-                <TextField fx:id="carb100Field" />
-            </children>
-        </HBox>
-        <HBox prefHeight="33.0" prefWidth="472.0">
-            <children>
-                <Button fx:id="addProd" mnemonicParsing="false" onAction="#onaddProdClick" prefHeight="29.0" prefWidth="117.0" text="Добавить продукт" />
-            </children>
-        </HBox>
-        <HBox prefHeight="23.0" prefWidth="450.0">
-            <children>
-                <Label prefHeight="27.0" prefWidth="100.0" text="Выбрать продукт: " />
-                <ChoiceBox fx:id="chooseProd" prefHeight="15.0" prefWidth="150.0" />
-            </children>
-        </HBox>
-        <HBox prefHeight="36.0" prefWidth="450.0">
-            <children>
-                <Label text="Вес (в гр.): " />
-                <TextField fx:id="weightFullField" />
-            </children>
-        </HBox>
-        <Button fx:id="addAll" mnemonicParsing="false" onAction="#onaddAllClick" text="Добавить" />
-        <TextField prefHeight="24.0" prefWidth="505.0" promptText="Поиск продуктов" />
-        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="273.0" prefWidth="447.0">
-            <children>
-                <TableView fx:id="table" prefHeight="275.0" prefWidth="459.0">
-                    <columns>
-                        <TableColumn fx:id="Name" prefWidth="81.0" text="Название" />
-                        <TableColumn fx:id="cal" prefWidth="94.0" text="Калории" />
-                        <TableColumn fx:id="prot" prefWidth="94.0" text="Белки" />
-                        <TableColumn fx:id="fat" prefWidth="93.0" text="Жиры" />
-                        <TableColumn fx:id="carb" prefWidth="87.0" text="Углеводы" />
-                    </columns>
-                </TableView>
-            </children>
-        </HBox>
-        <BarChart fx:id="grafik" prefHeight="145.0" prefWidth="506.0">
-            <xAxis>
-                <CategoryAxis side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-        </BarChart>
-        <Button fx:id="Save" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="21.0" prefWidth="140.0" text="Сохранить в файл" />
-    </children>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo.HelloController"
+      spacing="8" alignment="CENTER" prefWidth="800">
+
+    <!-- Дневная норма -->
+    <HBox spacing="6" alignment="CENTER_LEFT">
+        <Label text="Дневная норма (ккал):"/>
+        <TextField fx:id="calDField" prefWidth="60"/>
+        <Button fx:id="addNorm" text="Установить" onAction="#onaddNormClick"/>
+    </HBox>
+
+    <!-- Добавление нового продукта -->
+    <HBox spacing="6" alignment="CENTER_LEFT">
+        <Label text="Новый продукт:"/>
+        <TextField fx:id="prodField" prefWidth="120" promptText="Название"/>
+        <TextField fx:id="cal100Field" prefWidth="60" promptText="Ккал/100г"/>
+        <TextField fx:id="prot100Field" prefWidth="60" promptText="Белки/100г"/>
+        <TextField fx:id="fat100Field" prefWidth="60" promptText="Жиры/100г"/>
+        <TextField fx:id="carb100Field" prefWidth="60" promptText="Углеводы/100г"/>
+        <Button fx:id="addProd" text="Добавить продукт" onAction="#onaddProdClick"/>
+    </HBox>
+
+    <!-- Выбор продукта, дата и вес -->
+    <HBox spacing="6" alignment="CENTER_LEFT">
+        <ChoiceBox fx:id="chooseProd" prefWidth="180"/>
+        <DatePicker fx:id="datePicker"/>
+        <TextField fx:id="weightFullField" prefWidth="60" promptText="Вес (г)"/>
+        <Button fx:id="addAll" text="Добавить в дневник" onAction="#onaddAllClick"/>
+    </HBox>
+
+    <!-- Таблица -->
+    <TableView fx:id="table" prefHeight="200" prefWidth="780">
+        <columns>
+            <TableColumn fx:id="dateCol"  text="Дата"     prefWidth="100"/>
+            <TableColumn fx:id="nameCol"  text="Продукт"  prefWidth="150"/>
+            <TableColumn fx:id="calCol"   text="Ккал"     prefWidth="100"/>
+            <TableColumn fx:id="protCol"  text="Белки"    prefWidth="100"/>
+            <TableColumn fx:id="fatCol"   text="Жиры"     prefWidth="100"/>
+            <TableColumn fx:id="carbCol"  text="Углеводы" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <!-- Кнопки графиков -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="График по дням"     onAction="#showDailyChart"/>
+        <Button text="График по продуктам" onAction="#showProductChart"/>
+    </HBox>
+
+    <!-- График -->
+    <BarChart fx:id="grafik" prefHeight="300" prefWidth="780">
+        <xAxis>
+            <CategoryAxis label="Дата/Продукт"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Калории"/>
+        </yAxis>
+    </BarChart>
+
+    <!-- Сохранение -->
+    <Button text="Сохранить" onAction="#onSaveClick"/>
+
 </VBox>
