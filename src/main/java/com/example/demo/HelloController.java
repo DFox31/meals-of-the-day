@@ -46,6 +46,13 @@ public class HelloController {
     public BarChart grafik;
     @FXML
     private ProductListModel model = new ProductListModel();
+<<<<<<< Updated upstream
+=======
+    private DailyNorm dailyNorm;
+
+    private final String fixedColor = "#FFA500";
+
+>>>>>>> Stashed changes
     @FXML
     public void initialize() {
         Name.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getName()));
@@ -56,12 +63,91 @@ public class HelloController {
 
 
         try {
+<<<<<<< Updated upstream
             File file = new File("products.dat");
             if (file.exists()) {
                 ProductListModel loadedModel = ProductListModel.loadFromFile("products.dat");
                 for (Product p : loadedModel.getProducts()) {
                     table.getItems().add(p);
                     model.addProduct(p);
+=======
+            int norm = Integer.parseInt(calDField.getText().trim().replace(",", "."));
+            dailyNorm = new DailyNorm(norm);
+            showAlert(Alert.AlertType.INFORMATION, "Успех", "Норма установлена: " + norm + " ккал");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректное число калорий");
+        }
+    }
+
+    @FXML
+    public void onaddProdClick() {
+        String name = prodField.getText().trim();
+        String calories = cal100Field.getText().trim().replace(",", ".");
+        String proteins = prot100Field.getText().trim().replace(",", ".");
+        String fats = fat100Field.getText().trim().replace(",", ".");
+        String carbs = carb100Field.getText().trim().replace(",", ".");
+        if (name.isEmpty() || calories.isEmpty() || proteins.isEmpty() || fats.isEmpty() || carbs.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Заполните все поля");
+            return;
+        }
+        Product newProd = new Product(name, calories, proteins, fats, carbs, LocalDate.now());
+        chooseProd.getItems().add(newProd);
+        clearProductFields();
+        showAlert(Alert.AlertType.INFORMATION, "Успех", "Продукт добавлен: " + name);
+    }
+
+    @FXML
+    public void onaddAllClick() {
+        Product sel = chooseProd.getValue();
+        LocalDate date = datePicker.getValue();
+        String weightText = weightFullField.getText().trim().replace(",", ".");
+        if (sel == null || date == null || weightText.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Выберите продукт, дату и введите вес");
+            return;
+        }
+        try {
+            double weight = Double.parseDouble(weightText);
+            double cal = Double.parseDouble(sel.getCcal().replace(",", ".")) * weight / 100;
+            double prot = Double.parseDouble(sel.getProts().replace(",", ".")) * weight / 100;
+            double fat = Double.parseDouble(sel.getFats().replace(",", ".")) * weight / 100;
+            double carb = Double.parseDouble(sel.getCarbs().replace(",", ".")) * weight / 100;
+
+            Product wp = new Product(sel.getName(), Double.toString(cal), Double.toString(prot), Double.toString(fat), Double.toString(carb), date);
+            productList.add(wp);
+            model.addProduct(wp);
+            weightFullField.clear();
+            showAlert(Alert.AlertType.INFORMATION, "Успех", "Запись добавлена");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректный вес");
+        }
+    }
+
+    private void updateChart(boolean byDate) {
+        grafik.getData().clear();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        Map<String, Double> grouped = productList.stream()
+                .sorted(Comparator.comparing(Product::getDate))
+                .collect(Collectors.toMap(
+                        p -> byDate ? p.getDate().format(DateTimeFormatter.ofPattern("dd.MM")) : p.getName(),
+                        p -> Double.parseDouble(p.getCcal().replace(",", ".")),
+                        Double::sum,
+                        LinkedHashMap::new
+                ));
+
+        for (Map.Entry<String, Double> entry : grouped.entrySet()) {
+            XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey(), entry.getValue());
+            series.getData().add(data);
+
+            final String valueStr = String.valueOf(Math.round(entry.getValue()));
+            data.nodeProperty().addListener((_, _, newNode) -> {
+                if (newNode != null) {
+                    newNode.setStyle("-fx-bar-fill: " + fixedColor + ";");
+                    Text label = new Text(valueStr);
+                    label.setFill(Color.BLACK);
+                    StackPane stackPane = (StackPane) newNode;
+                    stackPane.getChildren().add(label);
+>>>>>>> Stashed changes
                 }
             }
         } catch (Exception e) {
