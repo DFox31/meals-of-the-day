@@ -47,12 +47,6 @@
         </columns>
     </TableView>
 
-    <!-- Кнопки графиков -->
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="График по дням"     onAction="#showDailyChart"/>
-        <Button text="График по продуктам" onAction="#showProductChart"/>
-    </HBox>
-
     <!-- График -->
     <BarChart fx:id="grafik" prefHeight="300" prefWidth="780">
         <xAxis>

@@ -46,7 +46,7 @@ public class HelloController {
     private ProductListModel model = new ProductListModel();
     private DailyNorm dailyNorm;
 
-    private final String fixedColor = "#87CEFA"; // светло-синий
+    private final String fixedColor = "#FFA500";
 
     @FXML
     public void initialize() {
@@ -65,7 +65,7 @@ public class HelloController {
     }
 
     private void setupChart() {
-        grafik.setTitle("Потребление нутриентов");
+        grafik.setTitle("Потребление каллорий по дням");
         CategoryAxis xAxis = (CategoryAxis) grafik.getXAxis();
         xAxis.setLabel("Дата/Продукт");
         xAxis.setAutoRanging(true);
@@ -128,14 +128,6 @@ public class HelloController {
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректный вес");
         }
-    }
-
-    public void showDailyChart() {
-        updateChart(true);
-    }
-
-    public void showProductChart() {
-        updateChart(false);
     }
 
     private void updateChart(boolean byDate) {
