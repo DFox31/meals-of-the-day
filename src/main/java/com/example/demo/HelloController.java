@@ -208,3 +208,17 @@ public class HelloController {
         alert.showAndWait();
     }
 }
+=======
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+
+public class HelloController {
+    @FXML
+    private Label welcomeText;
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
+}
+>>>>>>> parent of 1fe94fa (добавление всего)
