@@ -1,13 +1,10 @@
 package com.example.demo;
 
-import java.io.Serializable;
+public class DailyNorm {
+    private int norm;
 
-public class DailyNorm implements Serializable {
-    public int dailyNorm;
-    public DailyNorm (int dailyNorm){
-        this.dailyNorm = dailyNorm;
+    public DailyNorm(int norm) {
+        this.norm = norm;
     }
-    public int getDailyNorm(){
-        return dailyNorm;
-    }
+
 }
