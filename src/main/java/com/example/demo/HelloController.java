@@ -67,7 +67,6 @@ public class HelloController {
     private void setupChart() {
         grafik.setTitle("Потребление каллорий по дням");
         CategoryAxis xAxis = (CategoryAxis) grafik.getXAxis();
-        xAxis.setLabel("Дата/Продукт");
         xAxis.setAutoRanging(true);
         xAxis.setAnimated(false);
 
