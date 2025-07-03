@@ -81,6 +81,7 @@ public class HelloController {
         try {
             int norm = Integer.parseInt(calDField.getText().trim().replace(",", "."));
             dailyNorm = new DailyNorm(norm);
+            model.setDailyNorm(dailyNorm);
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Норма установлена: " + norm + " ккал");
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректное число калорий");
@@ -123,10 +124,26 @@ public class HelloController {
             Product wp = new Product(sel.getName(), Double.toString(cal), Double.toString(prot), Double.toString(fat), Double.toString(carb), date);
             productList.add(wp);
             model.addProduct(wp);
+
+            checkDailyNorm(date);
+
             weightFullField.clear();
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Запись добавлена");
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректный вес");
+        }
+    }
+
+    private void checkDailyNorm(LocalDate date) {
+        if (dailyNorm == null) return;
+
+        double total = productList.stream()
+                .filter(p -> p.getDate().equals(date))
+                .mapToDouble(p -> Double.parseDouble(p.getCcal().replace(",", ".")))
+                .sum();
+
+        if (total >= dailyNorm.getNorm()) {
+            showAlert(Alert.AlertType.INFORMATION, "Норма достигнута", "Поздравляем! Вы достигли дневной нормы: " + dailyNorm.getNorm() + " ккал");
         }
     }
 
@@ -169,6 +186,7 @@ public class HelloController {
     @FXML
     public void onSaveClick() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("products.dat"))) {
+            model.setDailyNorm(dailyNorm); // Сохраняем норму перед записью
             oos.writeObject(model);
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Данные сохранены");
         } catch (IOException e) {
@@ -182,6 +200,10 @@ public class HelloController {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
                 model = (ProductListModel) ois.readObject();
                 productList.setAll(model.getProducts());
+                dailyNorm = model.getDailyNorm();
+                if (dailyNorm != null) {
+                    calDField.setText(String.valueOf(dailyNorm.getNorm()));
+                }
                 model.getProducts().stream()
                         .map(Product::getName)
                         .distinct()
