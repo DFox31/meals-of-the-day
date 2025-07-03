@@ -186,7 +186,7 @@ public class HelloController {
     @FXML
     public void onSaveClick() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("products.dat"))) {
-            model.setDailyNorm(dailyNorm); // Сохраняем норму перед записью
+            model.setDailyNorm(dailyNorm);
             oos.writeObject(model);
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Данные сохранены");
         } catch (IOException e) {
