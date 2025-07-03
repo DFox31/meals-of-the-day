@@ -101,6 +101,7 @@ public class HelloController {
         }
         Product newProd = new Product(name, calories, proteins, fats, carbs, LocalDate.now());
         chooseProd.getItems().add(newProd);
+        model.addReferenceProduct(newProd);
         clearProductFields();
         showAlert(Alert.AlertType.INFORMATION, "Успех", "Продукт добавлен: " + name);
     }
@@ -204,10 +205,7 @@ public class HelloController {
                 if (dailyNorm != null) {
                     calDField.setText(String.valueOf(dailyNorm.getNorm()));
                 }
-                model.getProducts().stream()
-                        .map(Product::getName)
-                        .distinct()
-                        .forEach(n -> chooseProd.getItems().add(new Product(n, "0","0","0","0", LocalDate.now())));
+                chooseProd.getItems().setAll(model.getReferenceProducts());
             } catch (IOException | ClassNotFoundException e) {
                 showAlert(Alert.AlertType.WARNING, "Ошибка загрузки", "Не удалось загрузить данные");
             }

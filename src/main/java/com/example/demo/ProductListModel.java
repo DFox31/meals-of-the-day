@@ -6,14 +6,23 @@ import java.util.List;
 
 public class ProductListModel implements Serializable {
     private List<Product> products = new ArrayList<>();
+    private List<Product> referenceProducts = new ArrayList<>();
     private DailyNorm dailyNorm;
 
     public void addProduct(Product product) {
         products.add(product);
     }
 
+    public void addReferenceProduct(Product product) {
+        referenceProducts.add(product);
+    }
+
     public List<Product> getProducts() {
         return products;
+    }
+
+    public List<Product> getReferenceProducts() {
+        return referenceProducts;
     }
 
     public DailyNorm getDailyNorm() {
