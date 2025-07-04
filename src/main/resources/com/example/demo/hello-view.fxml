@@ -47,7 +47,7 @@
     <!-- График -->
     <BarChart fx:id="grafik" prefHeight="300" prefWidth="780">
         <xAxis>
-            <CategoryAxis label="Дата потребеления" />
+            <CategoryAxis label="Дата потребления" />
         </xAxis>
         <yAxis>
             <NumberAxis label="Калории" />
