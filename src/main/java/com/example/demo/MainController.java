@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class HelloController {
+public class MainController {
     @FXML private TextField calDField;
     @FXML private Button addNorm;
     @FXML private Button addProd;

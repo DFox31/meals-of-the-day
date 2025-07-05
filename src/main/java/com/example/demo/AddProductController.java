@@ -19,13 +19,13 @@ public class AddProductController {
     private TextField carbsField;
 
     private Stage stage;
-    private HelloController mainController;
+    private MainController mainController;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setMainController(HelloController mainController) {
+    public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
