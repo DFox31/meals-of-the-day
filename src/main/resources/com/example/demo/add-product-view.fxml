@@ -1,68 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="8" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainController">
-    <AnchorPane prefHeight="818.0" prefWidth="870.0">
-        <children>
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddProductController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <GridPane hgap="10" vgap="10">
+        <Label text="Название:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nameField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <!-- Дневная норма -->
-            <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="10.0" spacing="6">
-                <Label text="Дневная норма (ккал):" styleClass="aqua-label" />
-                <TextField fx:id="calDField" prefWidth="60" styleClass="aqua-text-field" />
-                <Button fx:id="addNorm" onAction="#onaddNormClick" text="Установить" styleClass="aqua-button" />
-            </HBox>
+        <Label text="Калории (ккал/100г):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="caloriesField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <!-- Добавление нового продукта -->
-            <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="41.0" spacing="6">
-                <Button fx:id="addProd" onAction="#onaddProdClick" text="Добавить новый продукт" styleClass="aqua-button" />
-            </HBox>
+        <Label text="Белки (г/100г):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="proteinsField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <!-- Выбор продукта, дата и вес -->
-            <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="74.0" spacing="6">
-                <ChoiceBox fx:id="chooseProd" prefWidth="180" styleClass="aqua-choice-box" />
-                <DatePicker fx:id="datePicker" styleClass="aqua-date-picker" />
-                <TextField fx:id="weightFullField" prefWidth="60" promptText="Вес (г)" styleClass="aqua-text-field" />
-                <Button fx:id="addAll" onAction="#onaddAllClick" text="Добавить в дневник" styleClass="aqua-button" />
-            </HBox>
+        <Label text="Жиры (г/100г):" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="fatsField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-            <!-- Таблица -->
-            <TableView fx:id="table" layoutX="187.0" layoutY="117.0" prefHeight="280.0" prefWidth="907.0" styleClass="aqua-table-view">
-                <columns>
-                    <TableColumn fx:id="dateCol" prefWidth="100" text="Дата" styleClass="aqua-table-column" />
-                    <TableColumn fx:id="nameCol" prefWidth="150" text="Продукт" styleClass="aqua-table-column" />
-                    <TableColumn fx:id="calCol" prefWidth="152.0" text="Ккал" styleClass="aqua-table-column" />
-                    <TableColumn fx:id="protCol" prefWidth="165.0" text="Белки" styleClass="aqua-table-column" />
-                    <TableColumn fx:id="fatCol" prefWidth="152.0" text="Жиры" styleClass="aqua-table-column" />
-                    <TableColumn fx:id="carbCol" prefWidth="187.0" text="Углеводы" styleClass="aqua-table-column" />
-                </columns>
-            </TableView>
-
-            <!-- График -->
-            <BarChart fx:id="grafik" layoutX="251.0" layoutY="407.0" prefHeight="250.0" prefWidth="780" styleClass="aqua-bar-chart">
-                <xAxis>
-                    <CategoryAxis label="Дата потребления" prefHeight="32.0" prefWidth="661.0" styleClass="aqua-axis" />
-                </xAxis>
-                <yAxis>
-                    <NumberAxis label="Калории" styleClass="aqua-axis" />
-                </yAxis>
-            </BarChart>
-
-            <!-- Сохранение -->
-            <Button layoutX="549.0" layoutY="657.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSaveClick" prefHeight="39.0" prefWidth="183.0" text="Сохранить в файл" styleClass="aqua-button" />
-        </children>
-    </AnchorPane>
-
+        <Label text="Углеводы (г/100г):" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="carbsField" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#handleAdd" text="Добавить" />
+        <Button onAction="#handleCancel" text="Отмена" />
+    </HBox>
 </VBox>
