@@ -49,8 +49,8 @@
  }
 
  .table-column.aqua-table-column {
-     -fx-background-color: #7fdbff;
-     -fx-text-fill: white;
+     -fx-background-color: white;
+     -fx-text-fill: black;
      -fx-alignment: CENTER;
      -fx-font-weight: bold;
      -fx-border-color: #39cccc;
