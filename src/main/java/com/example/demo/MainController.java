@@ -1,5 +1,6 @@
 package com.example.demo;
 
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -96,9 +97,7 @@ public class MainController {
             stage.setTitle("Добавление продукта");
             stage.setScene(new Scene(root));
 
-            AddProductController controller = loader.getController();
-            controller.setStage(stage);
-            controller.setMainController(this);
+
 
             stage.show();
         } catch (IOException e) {
