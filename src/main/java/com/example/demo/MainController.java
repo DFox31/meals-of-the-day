@@ -219,7 +219,7 @@ public class MainController {
                 globalModel = (ProductListModel) ois.readObject();
                 users.setAll(globalModel.getUsers());
                 if (!users.isEmpty()) {
-                    currentUser = users.get(0);
+                    currentUser = users.getFirst();
                     chooseUser.getSelectionModel().select(currentUser);
                     loadProductsForUser(); // Загружаем данные первого пользователя
                 }
@@ -249,7 +249,7 @@ public class MainController {
     }
     private void setupUserManagement() {
         chooseUser.setItems(users);
-        chooseUser.getSelectionModel().selectedItemProperty().addListener((obs, oldUser, newUser) -> {
+        chooseUser.getSelectionModel().selectedItemProperty().addListener((_, oldUser, newUser) -> {
             if (newUser != null && newUser != oldUser) {
                 if (oldUser != null) {
                     try {
