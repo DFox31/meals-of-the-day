@@ -39,13 +39,10 @@ public class MainController {
     @FXML private TableColumn<Product, String> protCol;
     @FXML private TableColumn<Product, String> fatCol;
     @FXML private TableColumn<Product, String> carbCol;
-    @FXML private BarChart<String, Number> grafik;
 
     private final ObservableList<Product> productList = FXCollections.observableArrayList();
     private ProductListModel model = new ProductListModel();
     private DailyNorm dailyNorm;
-
-    private final String fixedColor = "#FFA500";
 
     @FXML
     public void initialize() {
@@ -58,20 +55,7 @@ public class MainController {
         carbCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getCarbs()));
         table.setItems(productList);
 
-        setupChart();
-        productList.addListener((ListChangeListener<Product>) _ -> updateChart(true));
         loadProducts();
-    }
-
-    private void setupChart() {
-        grafik.setTitle("Потребление каллорий по дням");
-        CategoryAxis xAxis = (CategoryAxis) grafik.getXAxis();
-        xAxis.setAutoRanging(true);
-        xAxis.setAnimated(false);
-
-        NumberAxis yAxis = (NumberAxis) grafik.getYAxis();
-        yAxis.setLabel("Калории");
-        yAxis.setForceZeroInRange(true);
     }
 
     @FXML
@@ -142,6 +126,29 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void onOpenChartClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("chart-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("График потребления калорий");
+            stage.setScene(new Scene(root));
+
+            ChartViewController controller = loader.getController();
+            controller.setMainController(this);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно графика");
+        }
+    }
+    public ObservableList<Product> getProductList() {
+        return productList;
+    }
+
     private void checkDailyNorm(LocalDate date) {
         if (dailyNorm == null) return;
 
@@ -155,40 +162,7 @@ public class MainController {
         }
     }
 
-    private void updateChart(boolean byDate) {
-        grafik.getData().clear();
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-        Map<String, Double> grouped = productList.stream()
-                .sorted(Comparator.comparing(Product::getDate))
-                .collect(Collectors.toMap(
-                        p -> byDate ? p.getDate().format(DateTimeFormatter.ofPattern("dd.MM")) : p.getName(),
-                        p -> Double.parseDouble(p.getCcal().replace(",", ".")),
-                        Double::sum,
-                        LinkedHashMap::new
-                ));
-
-        for (Map.Entry<String, Double> entry : grouped.entrySet()) {
-            XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey(), entry.getValue());
-            series.getData().add(data);
-
-            final String valueStr = String.valueOf(Math.round(entry.getValue()));
-            data.nodeProperty().addListener((_, _, newNode) -> {
-                if (newNode != null) {
-                    newNode.setStyle("-fx-bar-fill: " + fixedColor + ";");
-                    Text label = new Text(valueStr);
-                    label.setFill(Color.BLACK);
-                    StackPane stackPane = (StackPane) newNode;
-                    stackPane.getChildren().add(label);
-                }
-            });
-        }
-
-        grafik.getData().add(series);
-
-
-
-    }
 
 
     @FXML
