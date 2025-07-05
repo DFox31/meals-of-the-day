@@ -2,27 +2,17 @@ package com.example.demo;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MainController {
     @FXML private static final String CSS_PATH = "/com/example/demo/aqua.css";
@@ -33,7 +23,6 @@ public class MainController {
     @FXML private DatePicker datePicker;
     @FXML private TextField weightFullField;
     @FXML private Button addAll;
-
     @FXML private TableView<Product> table;
     @FXML private TableColumn<Product, String> dateCol;
     @FXML private TableColumn<Product, String> nameCol;
@@ -41,22 +30,19 @@ public class MainController {
     @FXML private TableColumn<Product, String> protCol;
     @FXML private TableColumn<Product, String> fatCol;
     @FXML private TableColumn<Product, String> carbCol;
-
-    private final ObservableList<Product> productList = FXCollections.observableArrayList();
-    private ProductListModel model = new ProductListModel();
-    private DailyNorm dailyNorm;
+    @FXML private final ObservableList<Product> productList = FXCollections.observableArrayList();
+    @FXML private ProductListModel model = new ProductListModel();
+    @FXML private DailyNorm dailyNorm;
 
     @FXML
     public void initialize() {
-        dateCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(
-                cd.getValue().getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
+        dateCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
         nameCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getName()));
         calCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getCcal()));
         protCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getProts()));
         fatCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getFats()));
         carbCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getCarbs()));
         table.setItems(productList);
-
         loadProducts();
     }
 
@@ -81,7 +67,6 @@ public class MainController {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
 
-            // Применяем CSS к дочернему окну
             applyStyles(scene);
 
             stage.setTitle("Добавление продукта");
@@ -97,6 +82,7 @@ public class MainController {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно добавления продукта");
         }
     }
+
     public void addReferenceProduct(String name, String calories, String proteins, String fats, String carbs) {
         Product newProd = new Product(name, calories, proteins, fats, carbs, LocalDate.now());
         chooseProd.getItems().add(newProd);
@@ -123,9 +109,7 @@ public class MainController {
             Product wp = new Product(sel.getName(), Double.toString(cal), Double.toString(prot), Double.toString(fat), Double.toString(carb), date);
             productList.add(wp);
             model.addProduct(wp);
-
             checkDailyNorm(date);
-
             weightFullField.clear();
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Запись добавлена");
         } catch (NumberFormatException e) {
@@ -142,7 +126,6 @@ public class MainController {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
 
-            // Применяем CSS к дочернему окну
             applyStyles(scene);
 
             stage.setTitle("График потребления калорий");
@@ -178,16 +161,12 @@ public class MainController {
 
         double total = productList.stream()
                 .filter(p -> p.getDate().equals(date))
-                .mapToDouble(p -> Double.parseDouble(p.getCcal().replace(",", ".")))
-                .sum();
+                .mapToDouble(p -> Double.parseDouble(p.getCcal().replace(",", "."))).sum();
 
         if (total >= dailyNorm.getNorm()) {
             showAlert(Alert.AlertType.INFORMATION, "Норма достигнута", "Поздравляем! Вы достигли дневной нормы: " + dailyNorm.getNorm() + " ккал");
         }
     }
-
-
-
 
     @FXML
     public void onSaveClick() {

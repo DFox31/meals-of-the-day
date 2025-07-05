@@ -7,25 +7,17 @@ import javafx.stage.Stage;
 
 public class AddProductController {
 
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField caloriesField;
-    @FXML
-    private TextField proteinsField;
-    @FXML
-    private TextField fatsField;
-    @FXML
-    private TextField carbsField;
-
-    private Stage stage;
-    private MainController mainController;
-
-    public void setStage(Stage stage) {
+    @FXML private TextField nameField;
+    @FXML private TextField caloriesField;
+    @FXML private TextField proteinsField;
+    @FXML private TextField fatsField;
+    @FXML private TextField carbsField;
+    @FXML private Stage stage;
+    @FXML private MainController mainController;
+    @FXML public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    public void setMainController(MainController mainController) {
+    @FXML public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
@@ -45,7 +37,6 @@ public class AddProductController {
         if (mainController != null) {
             mainController.addReferenceProduct(name, calories, proteins, fats, carbs);
         }
-
         stage.close();
     }
 
@@ -54,6 +45,7 @@ public class AddProductController {
         stage.close();
     }
 
+    @FXML
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

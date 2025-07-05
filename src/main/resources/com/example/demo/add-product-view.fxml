@@ -4,10 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox styleClass="aqua-vbox" alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddProductController">
@@ -15,10 +13,10 @@
         <Insets bottom="10" left="10" right="10" top="10" />
     </padding>
     <GridPane hgap="10" vgap="10">
-        <Label text="Название:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="aqua-label" />
+        <Label text="Наименование продукта:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="aqua-label" />
         <TextField fx:id="nameField" prefWidth="200" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="aqua-text-field" />
 
-        <Label text="Калории (ккал/100г):" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="aqua-label" />
+        <Label text="Килокалории (ккал/100г):" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="aqua-label" />
         <TextField fx:id="caloriesField" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="aqua-text-field" />
 
         <Label text="Белки (г/100г):" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="aqua-label" />
@@ -29,17 +27,7 @@
 
         <Label text="Углеводы (г/100г):" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="aqua-label" />
         <TextField fx:id="carbsField" onAction="#handleAdd" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="aqua-text-field" />
-        <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints>
+
     </GridPane>
     <HBox alignment="CENTER" spacing="10">
         <Button onAction="#handleAdd" text="Добавить" styleClass="aqua-button" />

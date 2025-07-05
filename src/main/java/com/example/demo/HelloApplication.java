@@ -1,10 +1,8 @@
 package com.example.demo;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,7 +12,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        // Исправленный путь к CSS
+        //путь к CSS
         String cssPath = "/com/example/demo/aqua.css";
         InputStream cssStream = getClass().getResourceAsStream(cssPath);
 
