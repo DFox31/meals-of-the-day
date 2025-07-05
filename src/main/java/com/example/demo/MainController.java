@@ -150,6 +150,28 @@ public class MainController {
         }
     }
 
+    public void onaddUser() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add-user-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+
+            applyStyles(scene);
+
+            stage.setTitle("Добавление пользователя");
+            stage.setScene(scene);
+
+            AddUserController controller = loader.getController();
+            controller.setStage(stage);
+            controller.setMainController(this);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно добавления пользователя: " + e.getMessage());
+        }
+    }
+
     // Метод для применения стилей к сцене
     private void applyStyles(Scene scene) {
         URL cssResource = getClass().getResource(CSS_PATH);
@@ -203,22 +225,7 @@ public class MainController {
         }
     }
 
-    public void onaddUser() {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("add-user-view.fxml"));
-                Parent root = loader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Добавление пользователя");
-                stage.setScene(new Scene(root));
 
-                AddUserController controller = loader.getController();
-                controller.setStage(stage);
-                controller.setMainController(this);
-                stage.show();
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно добавления пользователя: " + e.getMessage());
-            }
-        }
     private void loadUsers() {
         File f = new File("users.dat");
         if (f.exists()) {

@@ -9,20 +9,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="200.0" prefWidth="300.0" spacing="10" style="-fx-padding: 20; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddUserController">
+<VBox styleClass="aqua-vbox" prefHeight="200.0" prefWidth="300.0" spacing="10" style="-fx-padding: 20; -fx-background-color: #f9f9f9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddUserController">
    <children>
-      <Label prefHeight="20.0" prefWidth="192.0" text="Добавление пользователя">
+      <Label styleClass="aqua-label" prefHeight="20.0" prefWidth="192.0" text="Добавление пользователя">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label text="Имя пользователя" />
-      <TextField fx:id="userNameField" promptText="Введите имя" />
-      <Label text="Дневная норма калорий" />
-      <TextField fx:id="calDField" promptText="Введите норму (ккал)" />
+      <Label styleClass="aqua-label" text="Имя пользователя" />
+      <TextField fx:id="userNameField" promptText="Введите имя" styleClass="aqua-label" />
+      <Label styleClass="aqua-label" text="Дневная норма калорий" />
+      <TextField fx:id="calDField" promptText="Введите норму (ккал)" styleClass="aqua-label" />
       <HBox alignment="CENTER" spacing="10">
-         <Button fx:id="addUser" onAction="#onAddUserClick" text="Добавить" />
-         <Button fx:id="cancel" onAction="#onCancelClick" text="Отмена" />
+         <Button fx:id="addUser" onAction="#onAddUserClick" text="Добавить" styleClass="aqua-button" />
+         <Button fx:id="cancel" onAction="#onCancelClick" text="Отмена" styleClass="aqua-button" />
       </HBox>
    </children>
 </VBox>
