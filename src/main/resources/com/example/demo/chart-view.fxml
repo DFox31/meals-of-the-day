@@ -9,14 +9,14 @@
 
 <VBox spacing="10" style="-fx-padding: 10;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.ChartViewController">
     <HBox spacing="10" style="-fx-padding: 0 0 10 0;">
-        <CheckBox fx:id="byDateCheckBox" onAction="#updateChart" selected="true" text="Группировать по датам" />
+        <CheckBox fx:id="byDateCheckBox" onAction="#updateChart" selected="true" text="Группировать по датам" styleClass="aqua-check-box" />
     </HBox>
-    <BarChart fx:id="chart" animated="false" title="Потребление калорий">
+    <BarChart fx:id="chart" animated="false" title="Потребление калорий" styleClass="aqua-bar-chart" >
         <xAxis>
-            <CategoryAxis label="Категория" />
+            <CategoryAxis label="Категория" styleClass="aqua-axis"/>
         </xAxis>
         <yAxis>
-            <NumberAxis label="Калории" />
+            <NumberAxis label="Калории" styleClass="aqua-axis" />
         </yAxis>
     </BarChart>
 </VBox>

@@ -1,81 +1,87 @@
-/* Общие стили */
-.root {
-    -fx-base: #7fdbff;
-    -fx-accent: #39cccc;
-    -fx-default-button: #7fdbff;
-    -fx-focus-color: #39cccc;
-    -fx-faint-focus-color: #39cccc22;
-    -fx-font-family: "Arial";
-}
+ /* Общие стили */
+ .root {
+     -fx-base: #7fdbff;
+     -fx-accent: #39cccc;
+     -fx-default-button: #7fdbff;
+     -fx-focus-color: #39cccc;
+     -fx-faint-focus-color: #39cccc22;
+     -fx-font-family: "Arial";
+ }
 
-/* Стили для кнопок */
-.button.aqua-button {
-    -fx-background-color: linear-gradient(to bottom, #7fdbff, #39cccc);
-    -fx-text-fill: white;
-    -fx-background-radius: 5;
-    -fx-padding: 5 15 5 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
-    -fx-font-weight: bold;
-}
+ /* Стили для кнопок */
+ .button.aqua-button {
+     -fx-background-color: linear-gradient(to bottom, #7fdbff, #39cccc);
+     -fx-text-fill: white;
+     -fx-background-radius: 5;
+     -fx-padding: 5 15 5 15;
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+     -fx-font-weight: bold;
+ }
 
-.button.aqua-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #39cccc, #7fdbff);
-}
+ .button.aqua-button:hover {
+     -fx-background-color: linear-gradient(to bottom, #39cccc, #7fdbff);
+ }
 
-/* Стили для текстовых полей */
-.text-field.aqua-text-field {
-    -fx-background-color: white;
-    -fx-border-color: #39cccc;
-    -fx-border-radius: 3;
-    -fx-padding: 5;
-    -fx-font-size: 14px;
-}
+ /* Стили для текстовых полей */
+ .text-field.aqua-text-field {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+     -fx-border-radius: 3;
+     -fx-padding: 5;
+     -fx-font-size: 14px;
+ }
 
-/* Стили для таблицы */
-.table-view.aqua-table-view {
-    -fx-background-color: white;
-    -fx-border-color: #39cccc;
-    -fx-border-width: 2px;
-    -fx-border-radius: 5;
-}
+ /* Стили для таблицы */
+ .table-view.aqua-table-view {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+     -fx-border-width: 2px;
+     -fx-border-radius: 5;
+ }
 
-.table-column.aqua-table-column {
-    -fx-background-color: #7fdbff;
-    -fx-text-fill: white;
-    -fx-alignment: CENTER;
-    -fx-font-weight: bold;
-    -fx-border-color: #39cccc;
-}
+ .table-column.aqua-table-column {
+     -fx-background-color: #7fdbff;
+     -fx-text-fill: white;
+     -fx-alignment: CENTER;
+     -fx-font-weight: bold;
+     -fx-border-color: #39cccc;
+ }
 
-/* Стили для выпадающих списков */
-.choice-box.aqua-choice-box {
-    -fx-background-color: white;
-    -fx-border-color: #39cccc;
-    -fx-border-radius: 3;
-}
+ /* Стили для выпадающих списков */
+ .choice-box.aqua-choice-box {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+     -fx-border-radius: 3;
+ }
 
-/* Стили для DatePicker */
-.date-picker.aqua-date-picker {
-    -fx-background-color: white;
-    -fx-border-color: #39cccc;
-}
+ /* Стили для DatePicker */
+ .date-picker.aqua-date-picker {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+ }
 
-/* Стили для меток */
-.label.aqua-label {
-    -fx-text-fill: #0074D9;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-}
+ /* Стили для меток */
+ .label.aqua-label {
+     -fx-text-fill: #0074D9;
+     -fx-font-weight: bold;
+     -fx-font-size: 14px;
+ }
 
-/* Стили для графика */
-.chart.aqua-bar-chart {
-    -fx-background-color: white;
-    -fx-border-color: #39cccc;
-    -fx-border-radius: 5;
-    -fx-padding: 10px;
-}
+ /* Стили для графика */
+ .chart.aqua-bar-chart {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+     -fx-border-radius: 5;
+     -fx-padding: 10px;
+ }
 
-.axis.aqua-axis {
-    -fx-tick-label-fill: #0074D9;
-    -fx-font-size: 12px;
-}
+ .axis.aqua-axis {
+     -fx-tick-label-fill: #0074D9;
+     -fx-font-size: 12px;
+ }
+
+ .check-box.aqua-check-box {
+     -fx-font-size: 14px;
+     -fx-text-fill: #0074D9;
+     -fx-font-weight: bold;
+ }
