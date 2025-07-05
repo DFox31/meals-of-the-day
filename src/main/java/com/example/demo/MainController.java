@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MainController {
+    @FXML private static final String CSS_PATH = "/com/example/demo/aqua.css";
     @FXML private TextField calDField;
     @FXML private Button addNorm;
     @FXML private Button addProd;
@@ -77,8 +79,13 @@ public class MainController {
             Parent root = loader.load();
 
             Stage stage = new Stage();
+            Scene scene = new Scene(root);
+
+            // Применяем CSS к дочернему окну
+            applyStyles(scene);
+
             stage.setTitle("Добавление продукта");
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
 
             AddProductController controller = loader.getController();
             controller.setStage(stage);
@@ -133,8 +140,13 @@ public class MainController {
             Parent root = loader.load();
 
             Stage stage = new Stage();
+            Scene scene = new Scene(root);
+
+            // Применяем CSS к дочернему окну
+            applyStyles(scene);
+
             stage.setTitle("График потребления калорий");
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
 
             ChartViewController controller = loader.getController();
             controller.setMainController(this);
@@ -145,6 +157,18 @@ public class MainController {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно графика");
         }
     }
+
+    // Метод для применения стилей к сцене
+    private void applyStyles(Scene scene) {
+        URL cssResource = getClass().getResource(CSS_PATH);
+        if (cssResource != null) {
+            scene.getStylesheets().add(cssResource.toExternalForm());
+        } else {
+            System.err.println("Не удалось загрузить CSS: " + CSS_PATH);
+        }
+    }
+
+
     public ObservableList<Product> getProductList() {
         return productList;
     }

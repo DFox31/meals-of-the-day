@@ -8,6 +8,15 @@
      -fx-font-family: "Arial";
  }
 
+ .aqua-vbox {
+     -fx-background-color: #e6f7ff;
+     -fx-padding: 15px;
+     -fx-border-color: #39cccc;
+     -fx-border-width: 2px;
+     -fx-border-radius: 5px;
+ }
+
+
  /* Стили для кнопок */
  .button.aqua-button {
      -fx-background-color: linear-gradient(to bottom, #7fdbff, #39cccc);
@@ -84,4 +93,31 @@
      -fx-font-size: 14px;
      -fx-text-fill: #0074D9;
      -fx-font-weight: bold;
+ }
+ .check-box.aqua-check-box:selected > .box > .mark {
+     -fx-background-color: white;
+ }
+
+ .check-box.aqua-check-box > .box {
+     -fx-background-color: white;
+     -fx-border-color: #39cccc;
+     -fx-border-radius: 3px;
+     -fx-border-width: 2px;
+     -fx-background-radius: 3px;
+     -fx-padding: 3px;
+ }
+
+ .check-box.aqua-check-box:hover > .box {
+     -fx-background-color: #e6f7ff;
+     -fx-border-color: #7fdbff;
+ }
+
+ .check-box.aqua-check-box:selected > .box {
+     -fx-background-color: #39cccc;
+     -fx-border-color: #39cccc;
+ }
+
+ /* Стили для VBox и HBox */
+ .vbox, .hbox {
+     -fx-background-color: -fx-base;
  }
