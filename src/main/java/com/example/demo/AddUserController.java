@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,11 +10,8 @@ public class AddUserController {
     @FXML public TextField userNameField;
     @FXML public Button addUser;
     @FXML public Button cancel;
-    @FXML
-    private TextField calDField;
-    @FXML private Button addNorm;
-    @FXML
-    private Stage stage;
+    @FXML private TextField calDField;
+    @FXML private Stage stage;
     private MainController mainController;
     public void setStage(Stage stage) {
         this.stage = stage;

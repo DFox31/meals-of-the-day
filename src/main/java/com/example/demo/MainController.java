@@ -2,9 +2,7 @@ package com.example.demo;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -51,21 +49,9 @@ public class MainController {
         table.setItems(productList);
         loadProducts();
         setupUserManagement();
-        //productList.addListener((ListChangeListener<Product>) _ -> updateChart(true));
         loadUsers();
     }
 
-    /*@FXML
-    public void onaddNormClick() {
-        try {
-            int norm = Integer.parseInt(calDField.getText().trim().replace(",", "."));
-            dailyNorm = new DailyNorm(norm);
-            model.setDailyNorm(dailyNorm);
-            showAlert(Alert.AlertType.INFORMATION, "Успех", "Норма установлена: " + norm + " ккал");
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректное число калорий");
-        }
-    }*/
 
     @FXML
     public void onaddProdClick() {
@@ -260,7 +246,6 @@ public class MainController {
             model = new ProductListModel();
             model.setDailyNorm(currentUser.getDailyNorm());
         }
-        //updateChart(true);
     }
     private void setupUserManagement() {
         chooseUser.setItems(users);
@@ -298,7 +283,6 @@ public class MainController {
         model.setDailyNorm(dailyNorm);
         productList.clear(); // Очищаем таблицу
         chooseProd.getItems().clear(); // Очищаем список продуктов
-        //updateChart(true); // Обновляем график
         try {
             globalModel.saveToFile("users.dat"); // Сохраняем список пользователей
         } catch (IOException e) {
