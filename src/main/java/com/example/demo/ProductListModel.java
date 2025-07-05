@@ -8,6 +8,7 @@ public class ProductListModel implements Serializable {
     private List<Product> products = new ArrayList<>();
     private List<Product> referenceProducts = new ArrayList<>();
     private DailyNorm dailyNorm;
+    private List<User> users = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
@@ -31,6 +32,13 @@ public class ProductListModel implements Serializable {
 
     public void setDailyNorm(DailyNorm dailyNorm) {
         this.dailyNorm = dailyNorm;
+    }
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     public void saveToFile(String filename) throws IOException {

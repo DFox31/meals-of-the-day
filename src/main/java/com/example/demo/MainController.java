@@ -2,7 +2,9 @@ package com.example.demo;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +18,8 @@ import java.time.format.DateTimeFormatter;
 
 public class MainController {
     @FXML private static final String CSS_PATH = "/com/example/demo/aqua.css";
-    @FXML private TextField calDField;
+    @FXML public ChoiceBox<User> chooseUser;
+    @FXML public Button addUser;
     @FXML private Button addNorm;
     @FXML private Button addProd;
     @FXML private ChoiceBox<Product> chooseProd;
@@ -31,8 +34,11 @@ public class MainController {
     @FXML private TableColumn<Product, String> fatCol;
     @FXML private TableColumn<Product, String> carbCol;
     @FXML private final ObservableList<Product> productList = FXCollections.observableArrayList();
+    @FXML private final ObservableList<User> users = FXCollections.observableArrayList();
     @FXML private ProductListModel model = new ProductListModel();
     @FXML private DailyNorm dailyNorm;
+    private User currentUser;
+    private ProductListModel globalModel = new ProductListModel();
 
     @FXML
     public void initialize() {
@@ -44,9 +50,12 @@ public class MainController {
         carbCol.setCellValueFactory(cd -> new SimpleObjectProperty<>(cd.getValue().getCarbs()));
         table.setItems(productList);
         loadProducts();
+        setupUserManagement();
+        //productList.addListener((ListChangeListener<Product>) _ -> updateChart(true));
+        loadUsers();
     }
 
-    @FXML
+    /*@FXML
     public void onaddNormClick() {
         try {
             int norm = Integer.parseInt(calDField.getText().trim().replace(",", "."));
@@ -56,7 +65,7 @@ public class MainController {
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Введите корректное число калорий");
         }
-    }
+    }*/
 
     @FXML
     public void onaddProdClick() {
@@ -173,6 +182,7 @@ public class MainController {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("products.dat"))) {
             model.setDailyNorm(dailyNorm);
             oos.writeObject(model);
+            model.saveToFile(currentUser.getName() + "_products.dat");
             showAlert(Alert.AlertType.INFORMATION, "Успех", "Данные сохранены");
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось сохранить данные");
@@ -186,9 +196,6 @@ public class MainController {
                 model = (ProductListModel) ois.readObject();
                 productList.setAll(model.getProducts());
                 dailyNorm = model.getDailyNorm();
-                if (dailyNorm != null) {
-                    calDField.setText(String.valueOf(dailyNorm.getNorm()));
-                }
                 chooseProd.getItems().setAll(model.getReferenceProducts());
             } catch (IOException | ClassNotFoundException e) {
                 showAlert(Alert.AlertType.WARNING, "Ошибка загрузки", "Не удалось загрузить данные");
@@ -196,6 +203,101 @@ public class MainController {
         }
     }
 
+    public void onaddUser() {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("add-user-view.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setTitle("Добавление пользователя");
+                stage.setScene(new Scene(root));
+
+                AddUserController controller = loader.getController();
+                controller.setStage(stage);
+                controller.setMainController(this);
+                stage.show();
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно добавления пользователя: " + e.getMessage());
+            }
+        }
+    private void loadUsers() {
+        File f = new File("users.dat");
+        if (f.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                globalModel = (ProductListModel) ois.readObject();
+                users.setAll(globalModel.getUsers());
+                if (!users.isEmpty()) {
+                    currentUser = users.get(0);
+                    chooseUser.getSelectionModel().select(currentUser);
+                    loadProductsForUser(); // Загружаем данные первого пользователя
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                showAlert(Alert.AlertType.WARNING, "Ошибка загрузки", "Не удалось загрузить список пользователей: " + e.getMessage());
+            }
+        }
+    }
+    private void loadProductsForUser() {
+        if (currentUser == null) return;
+        File f = new File(currentUser.getName() + "_products.dat");
+        if (f.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f))) {
+                model = (ProductListModel) ois.readObject();
+                productList.setAll(model.getProducts());
+                dailyNorm = model.getDailyNorm();
+                chooseProd.getItems().setAll(model.getReferenceProducts());
+            } catch (IOException | ClassNotFoundException e) {
+                showAlert(Alert.AlertType.WARNING, "Ошибка загрузки", "Не удалось загрузить данные пользователя: " + e.getMessage());
+            }
+        } else {
+            productList.clear();
+            chooseProd.getItems().clear();
+            model = new ProductListModel();
+            model.setDailyNorm(currentUser.getDailyNorm());
+        }
+        //updateChart(true);
+    }
+    private void setupUserManagement() {
+        chooseUser.setItems(users);
+        chooseUser.getSelectionModel().selectedItemProperty().addListener((obs, oldUser, newUser) -> {
+            if (newUser != null && newUser != oldUser) {
+                if (oldUser != null) {
+                    try {
+                        model.setDailyNorm(dailyNorm);
+                        model.saveToFile(oldUser.getName() + "_products.dat");
+                    } catch (IOException e) {
+                        showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось сохранить данные пользователя: " + e.getMessage());
+                    }
+                }
+                currentUser = newUser;
+                model = new ProductListModel(); // Сбрасываем текущую модель
+                dailyNorm = newUser.getDailyNorm();
+                model.setDailyNorm(dailyNorm);
+                loadProductsForUser(); // Загружаем данные нового пользователя
+                //updateChart(true);
+            }
+        });
+    }
+    public void addUser(String username, DailyNorm dailyNorm) {
+        if (users.stream().anyMatch(u -> u.getName().equalsIgnoreCase(username))) {
+            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Пользователь с таким именем уже существует");
+            return;
+        }
+
+        User newUser = new User(username, dailyNorm);
+        users.add(newUser);
+        globalModel.addUser(newUser); // Добавляем в globalModel
+        chooseUser.getSelectionModel().select(newUser);
+        model = new ProductListModel(); // Создаем новую модель для нового пользователя
+        this.dailyNorm = dailyNorm;
+        model.setDailyNorm(dailyNorm);
+        productList.clear(); // Очищаем таблицу
+        chooseProd.getItems().clear(); // Очищаем список продуктов
+        //updateChart(true); // Обновляем график
+        try {
+            globalModel.saveToFile("users.dat"); // Сохраняем список пользователей
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось сохранить список пользователей: " + e.getMessage());
+        }
+    }
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
