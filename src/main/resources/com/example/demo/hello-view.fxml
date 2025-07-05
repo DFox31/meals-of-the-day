@@ -27,13 +27,7 @@
       
           <!-- Добавление нового продукта -->
           <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="41.0" spacing="6">
-              <Label text="Новый продукт:" />
-              <TextField fx:id="prodField" prefWidth="120" promptText="Название" />
-              <TextField fx:id="cal100Field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="78.0" promptText="Ккал/100г" />
-              <TextField fx:id="prot100Field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="78.0" promptText="Белки/100г" />
-              <TextField fx:id="fat100Field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="78.0" promptText="Жиры/100г" />
-              <TextField fx:id="carb100Field" prefHeight="25.0" prefWidth="100.0" promptText="Углеводы/100г" />
-              <Button fx:id="addProd" onAction="#onaddProdClick" text="Добавить продукт" />
+              <Button fx:id="addProd" onAction="#onaddProdClick" text="Добавить новый продукт" />
           </HBox>
       
           <!-- Выбор продукта, дата и вес -->

@@ -5,11 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -22,11 +26,6 @@ import java.util.stream.Collectors;
 public class HelloController {
     @FXML private TextField calDField;
     @FXML private Button addNorm;
-    @FXML private TextField prodField;
-    @FXML private TextField cal100Field;
-    @FXML private TextField prot100Field;
-    @FXML private TextField fat100Field;
-    @FXML private TextField carb100Field;
     @FXML private Button addProd;
     @FXML private ChoiceBox<Product> chooseProd;
     @FXML private DatePicker datePicker;
@@ -89,19 +88,28 @@ public class HelloController {
 
     @FXML
     public void onaddProdClick() {
-        String name = prodField.getText().trim();
-        String calories = cal100Field.getText().trim().replace(",", ".");
-        String proteins = prot100Field.getText().trim().replace(",", ".");
-        String fats = fat100Field.getText().trim().replace(",", ".");
-        String carbs = carb100Field.getText().trim().replace(",", ".");
-        if (name.isEmpty() || calories.isEmpty() || proteins.isEmpty() || fats.isEmpty() || carbs.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Предупреждение", "Заполните все поля");
-            return;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add-product-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Добавление продукта");
+            stage.setScene(new Scene(root));
+
+            AddProductController controller = loader.getController();
+            controller.setStage(stage);
+            controller.setMainController(this);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось открыть окно добавления продукта");
         }
+    }
+    public void addReferenceProduct(String name, String calories, String proteins, String fats, String carbs) {
         Product newProd = new Product(name, calories, proteins, fats, carbs, LocalDate.now());
         chooseProd.getItems().add(newProd);
         model.addReferenceProduct(newProd);
-        clearProductFields();
         showAlert(Alert.AlertType.INFORMATION, "Успех", "Продукт добавлен: " + name);
     }
 
@@ -209,14 +217,6 @@ public class HelloController {
                 showAlert(Alert.AlertType.WARNING, "Ошибка загрузки", "Не удалось загрузить данные");
             }
         }
-    }
-
-    private void clearProductFields() {
-        prodField.clear();
-        cal100Field.clear();
-        prot100Field.clear();
-        fat100Field.clear();
-        carb100Field.clear();
     }
 
     private void showAlert(Alert.AlertType type, String title, String msg) {
