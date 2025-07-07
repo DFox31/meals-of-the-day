@@ -22,7 +22,7 @@
             <Button fx:id="addAll" onAction="#onaddAllClick" styleClass="aqua-button" text="Добавить в дневник" />
         </HBox>
 
-        <Button layoutX="1152.0" layoutY="14.0" onAction="#showAbout" prefHeight="25.0" prefWidth="107.0" styleClass="aqua-button" text="О приложении" />
+        <Button layoutX="1121.0" layoutY="14.0" onAction="#showAbout" prefHeight="25.0" prefWidth="138.0" styleClass="aqua-button" text="О приложении" />
 
         <!-- Таблица -->
         <TableView fx:id="table" layoutX="187.0" layoutY="192.0" prefHeight="280.0" prefWidth="907.0" styleClass="aqua-table-view">
