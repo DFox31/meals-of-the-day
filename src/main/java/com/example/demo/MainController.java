@@ -289,6 +289,16 @@ public class MainController {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Не удалось сохранить список пользователей: " + e.getMessage());
         }
     }
+
+    @FXML
+    private void showAbout() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("О приложении");
+        alert.setHeaderText("Дневник питания");
+        alert.setContentText("Версия: 1.0\nСоздатели: Ваша Команда");
+        alert.showAndWait();
+    }
+
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
