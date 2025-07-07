@@ -294,8 +294,20 @@ public class MainController {
     private void showAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("О приложении");
-        alert.setHeaderText("Дневник питания");
-        alert.setContentText("Версия: 1.0\nСоздатели: Ваша Команда");
+
+        // Кастомный заголовок
+        Label header = new Label("Дневник питания");
+        header.getStyleClass().add("about-header");
+        alert.getDialogPane().setHeader(header);
+
+        // Кастомное содержимое
+        Label content = new Label("Версия: 1.5\nСоздатели:\nБорисов Лев\nЛабачев Савелий\nДаутов (без имени)");
+        content.getStyleClass().add("about-content");
+        alert.getDialogPane().setContent(content);
+
+        // Применяем стили
+        alert.getDialogPane().getStyleClass().add("about-dialog");
+
         alert.showAndWait();
     }
 

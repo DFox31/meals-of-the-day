@@ -121,3 +121,21 @@
  .vbox, .hbox {
      -fx-background-color: -fx-base;
  }
+ /*стили для окна о приложении*/
+ .about-dialog {
+     -fx-background-color: #e6f7ff;
+     -fx-border-color: #39cccc;
+     -fx-border-width: 2px;
+     -fx-padding: 15px;
+ }
+
+ .about-header {
+     -fx-font-size: 18px;
+     -fx-font-weight: bold;
+     -fx-text-fill: #0074D9;
+ }
+
+ .about-content {
+     -fx-font-size: 14px;
+     -fx-text-fill: #001f3f;
+ }
