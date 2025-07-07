@@ -311,10 +311,10 @@ public class MainController {
         Label header = new Label("Дневник питания");
         header.getStyleClass().add("about-header");
 
-        Label version = new Label("Версия: 1.5");
+        Label version = new Label("Версия: XDD");
         version.getStyleClass().add("about-version");
 
-        Label creators = new Label("Разработано командой:\nБорисов Лев, Лобачев Савелий, Даутов (без имени));
+        Label creators = new Label("Разработано командой:\nБорисов Лев, Лобачев Савелий, Даутов Артем,\nМФИ-10");
         creators.getStyleClass().add("about-creators");
         creators.setTextAlignment(TextAlignment.CENTER);
 
