@@ -258,7 +258,7 @@ public class MainController {
     }
     private void setupUserManagement() {
         chooseUser.setItems(users);
-        chooseUser.getSelectionModel().selectedItemProperty().addListener((_, oldUser, newUser) -> {
+        chooseUser.getSelectionModel().selectedItemProperty().addListener((obs, oldUser, newUser) -> {
             if (newUser != null && newUser != oldUser) {
                 if (oldUser != null) {
                     try {
