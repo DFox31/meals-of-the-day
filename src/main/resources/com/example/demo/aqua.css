@@ -123,19 +123,61 @@
  }
  /*стили для окна о приложении*/
  .about-dialog {
-     -fx-background-color: #e6f7ff;
+     -fx-background-color: linear-gradient(to bottom, #e6f7ff, #b3e6ff);
      -fx-border-color: #39cccc;
      -fx-border-width: 2px;
-     -fx-padding: 15px;
+     -fx-border-radius: 10px;
+     -fx-background-radius: 10px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 0);
+     -fx-padding: 20px;
  }
 
  .about-header {
-     -fx-font-size: 18px;
+     -fx-font-size: 20px;
      -fx-font-weight: bold;
-     -fx-text-fill: #0074D9;
+     -fx-text-fill: #0066cc;
+     -fx-alignment: center;
  }
 
  .about-content {
      -fx-font-size: 14px;
-     -fx-text-fill: #001f3f;
+     -fx-text-fill: #004080;
+     -fx-padding: 15px 0;
+ }
+
+ .about-separator {
+     -fx-padding: 10px 0;
+     -fx-border-color: #39cccc;
+     -fx-border-width: 0 0 1px 0;
+ }
+
+ .about-icon {
+     -fx-font-size: 48px;
+     -fx-text-fill: #0066cc;
+     -fx-padding: 0 0 15px 0;
+ }
+
+ .about-button {
+     -fx-background-color: linear-gradient(to bottom, #7fdbff, #39cccc);
+     -fx-text-fill: white;
+     -fx-font-weight: bold;
+     -fx-background-radius: 5;
+     -fx-padding: 8 20;
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+ }
+
+ .about-button:hover {
+     -fx-background-color: linear-gradient(to bottom, #39cccc, #7fdbff);
+     -fx-cursor: hand;
+ }
+
+ .about-version {
+     -fx-font-size: 16px;
+     -fx-font-weight: bold;
+     -fx-text-fill: #0066cc;
+ }
+
+ .about-creators {
+     -fx-font-style: italic;
+     -fx-text-fill: #006699;
  }

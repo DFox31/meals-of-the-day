@@ -1,14 +1,25 @@
 package com.example.demo;
 
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -295,18 +306,37 @@ public class MainController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("О приложении");
 
-        // Кастомный заголовок
+        VBox content = new VBox(10);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(20));
+
         Label header = new Label("Дневник питания");
         header.getStyleClass().add("about-header");
-        alert.getDialogPane().setHeader(header);
 
-        // Кастомное содержимое
-        Label content = new Label("Версия: 1.5\nСоздатели:\nБорисов Лев\nЛабачев Савелий\nДаутов (без имени)");
-        content.getStyleClass().add("about-content");
+        Label version = new Label("Версия: 1.5");
+        version.getStyleClass().add("about-version");
+
+        Label creators = new Label("Разработано командой:\nБорисов Лев, Лобачев Савелий, Даутов (без имени), DeepSeek, ChatGPT");
+        creators.getStyleClass().add("about-creators");
+        creators.setTextAlignment(TextAlignment.CENTER);
+
+        Separator separator = new Separator();
+        separator.getStyleClass().add("about-separator");
+
+        Label description = new Label("Приложение для отслеживания потребления калорий\nи контроля за питанием");
+        description.getStyleClass().add("about-content");
+        description.setTextAlignment(TextAlignment.CENTER);
+
+        content.getChildren().addAll(header, separator, version, creators, description);
+
         alert.getDialogPane().setContent(content);
-
-        // Применяем стили
         alert.getDialogPane().getStyleClass().add("about-dialog");
+
+        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(okButton);
+
+        Button okBtn = (Button) alert.getDialogPane().lookupButton(okButton);
+        okBtn.getStyleClass().add("about-button");
 
         alert.showAndWait();
     }
