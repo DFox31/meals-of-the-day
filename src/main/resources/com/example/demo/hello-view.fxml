@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="788.0" prefWidth="1280.0" spacing="8" styleClass="aqua-vbox" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainController">
+<VBox alignment="CENTER" prefHeight="788.0" prefWidth="1280.0" spacing="8" styleClass="aqua-vbox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainController">
     <AnchorPane prefHeight="818.0" prefWidth="870.0">
 
         <!-- Выбор продукта, дата и вес -->
@@ -14,9 +22,7 @@
             <Button fx:id="addAll" onAction="#onaddAllClick" styleClass="aqua-button" text="Добавить в дневник" />
         </HBox>
 
-        <Button layoutX="800.0" layoutY="14.0" onAction="#showAbout"
-                prefHeight="25.0" prefWidth="150.0" styleClass="aqua-button"
-                text="О приложении" />
+        <Button layoutX="1152.0" layoutY="14.0" onAction="#showAbout" prefHeight="25.0" prefWidth="107.0" styleClass="aqua-button" text="О приложении" />
 
         <!-- Таблица -->
         <TableView fx:id="table" layoutX="187.0" layoutY="192.0" prefHeight="280.0" prefWidth="907.0" styleClass="aqua-table-view">
@@ -36,14 +42,13 @@
         <!-- Сохранение -->
         <Button layoutX="549.0" layoutY="710.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onSaveClick" prefHeight="39.0" prefWidth="183.0" styleClass="aqua-button" text="Сохранить в файл" />
         <HBox layoutX="23.0" layoutY="14.0" prefHeight="25.0" prefWidth="221.0">
-            <Button fx:id="addUser" mnemonicParsing="false" onAction="#onaddUser" prefHeight="25.0" prefWidth="196.0"
-                    styleClass="aqua-button" text="Добавить пользователя"/>
+            <Button fx:id="addUser" mnemonicParsing="false" onAction="#onaddUser" prefHeight="25.0" prefWidth="196.0" styleClass="aqua-button" text="Добавить пользователя" />
         </HBox>
         <VBox layoutX="23.0" layoutY="47.0" prefHeight="56.0" prefWidth="232.0">
             <HBox prefHeight="26.0" prefWidth="149.0">
-                <Label prefHeight="26.0" prefWidth="197.0" styleClass="aqua-label" text="Выбрать пользователя"/>
+                <Label prefHeight="26.0" prefWidth="197.0" styleClass="aqua-label" text="Выбрать пользователя" />
             </HBox>
-            <ChoiceBox fx:id="chooseUser" prefHeight="25.0" prefWidth="160.0" styleClass="aqua-choice-box"/>
+            <ChoiceBox fx:id="chooseUser" prefHeight="25.0" prefWidth="160.0" styleClass="aqua-choice-box" />
         </VBox>
 
               <!-- Добавление нового продукта -->
