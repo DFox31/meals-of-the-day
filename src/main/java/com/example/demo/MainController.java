@@ -314,7 +314,7 @@ public class MainController {
         Label version = new Label("Версия: 1.5");
         version.getStyleClass().add("about-version");
 
-        Label creators = new Label("Разработано командой:\nБорисов Лев, Лобачев Савелий, Даутов (без имени), DeepSeek, ChatGPT");
+        Label creators = new Label("Разработано командой:\nБорисов Лев, Лобачев Савелий, Даутов (без имени));
         creators.getStyleClass().add("about-creators");
         creators.setTextAlignment(TextAlignment.CENTER);
 
